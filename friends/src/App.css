@@ -1,0 +1,49 @@
+
+
+.App-header {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.1rem;
+  font-family: "Ranchers";
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+h1 {
+  margin-bottom: 5px;
+}
+
+h1 .red {
+  color: #D90505;
+}
+
+h1 .blue {
+  color: #0EC2EE;
+}
+
+h1 .yellow {
+  color: #F5DA16;
+}
+
+nav {
+  margin-top: 20px;
+  font-family: "Rubik";
+  font-size: 1.6rem;
+  text-transform: none;
+  letter-spacing: 0px;
+  text-decoration: none;
+  padding-bottom: 10px;
+}
+
+.nav-container {
+  width: 100%;
+  background: black;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
