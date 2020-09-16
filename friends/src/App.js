@@ -16,15 +16,15 @@ function App() {
         <div className="nav-container">
         <nav>
           <Link style={{ background: "white", borderRadius: "20px", border: "4px solid #0EC2EE", padding: "10px", textDecoration: 'none', color: "black", marginRight: "15px"}} to="/login">Login</Link>
-          <Link style={{ background: "white", borderRadius: "20px", border: "4px solid #D90505", padding: "10px", textDecoration: 'none', color: "black"}} to="/protected">Friends List</Link>
-          <Link style={{ background: "white", borderRadius: "20px", border: "4px solid #F5DA16", padding: "10px", textDecoration: 'none', color: "black",  marginLeft: "15px"}} to="/protected">Add Friends</Link>
+          <Link style={{ background: "white", borderRadius: "20px", border: "4px solid #D90505", padding: "10px", textDecoration: 'none', color: "black"}} to="/friendslist">Friends List</Link>
+          <Link style={{ background: "white", borderRadius: "20px", border: "4px solid #F5DA16", padding: "10px", textDecoration: 'none', color: "black",  marginLeft: "15px"}} to="/register">Add Friends</Link>
         </nav>
         </div>
       </header>
       <Switch>
-          <PrivateRoute exact path="/protected" component={FriendsList} />
+          <PrivateRoute exact path="/friendslist" component={FriendsList} />
           <Route exact path="/login" component={Login} />
-          <PrivateRoute exact path ="/friendslist" component={FriendRegistration} />
+          <PrivateRoute exact path ="/register" component={FriendRegistration} />
         </Switch>     
     </div>
     </Router>

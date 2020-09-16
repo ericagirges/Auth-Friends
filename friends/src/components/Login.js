@@ -1,7 +1,7 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import Loader from "react-loader-spinner";
 
 const StyledForm = styled.form`
@@ -16,6 +16,15 @@ const StyledForm = styled.form`
 const StyledLabel = styled.label`
   font-family: "Rubik";
   font-size: 1.4rem;
+`;
+
+const StyledTitle = styled.h2`
+  font-family: "Rubik";
+  font-size: 1.8rem;
+  text-align: center;
+  color: #0ec2ee;
+  font-weight: 600;
+  text-decoration: black underline;
 `;
 
 const StyledInput = styled.input`
@@ -38,19 +47,19 @@ const StyledSubmit = styled.button`
 `;
 
 const userLogin = {
-    username: "",
-    password: ""
-}
+  username: "",
+  password: "",
+};
 
-const  Login = () => {
-    const [credentials, setCredentials] = useState(userLogin);
-    const history = useHistory();
+const Login = () => {
+  const [credentials, setCredentials] = useState(userLogin);
+  const history = useHistory();
 
-  const handleChange = (event) => {
+  const handleChanges = (event) => {
     setCredentials({
-        ...credentials,
-        [event.target.name]: event.target.value,
-      });
+      ...credentials,
+      [event.target.name]: event.target.value,
+    });
   };
 
   const handleSubmit = (event) => {
@@ -58,51 +67,47 @@ const  Login = () => {
     axiosWithAuth()
       .post("/api/login", credentials)
       .then((response) => {
-        console.log(response)
+        console.log(response);
         localStorage.setItem("token", response.data.payload);
         history.push("/friendslist");
       })
       .catch((error) => {
-        alert("Login failed.")
+        alert("Login failed.");
       });
   };
 
-
-    return (
-      <div>
-        {/* {fetchingData && (
+  return (
+    <div>
+      <StyledTitle>Login</StyledTitle>
+      {/* {fetchingData && (
           <div className="key spinner">
             <Loader type="Audio" color="#0EC2EE" height="60" width="60" />
             <p style={{ fontFamily: "Rubik" }}>Loading your Friends List</p>
           </div>
         )} */}
-        <StyledForm onSubmit={handleSubmit}>
-          <StyledLabel>
-            Username:
-            <StyledInput
-              type="text"
-              name="username"
-              value={credentials.username}
-              onChange={handleChange}
-            />
-          </StyledLabel>
-          <StyledLabel>
-            Password:
-            <StyledInput
-              type="password"
-              name="password"
-              value={credentials.password}
-              onChange={handleChange}
-            />
-          </StyledLabel>
-          <StyledSubmit>Submit</StyledSubmit>
-        </StyledForm>
-      </div>
-    );
-
-}
-
-
-
+      <StyledForm onSubmit={handleSubmit}>
+        <StyledLabel>
+          Username:
+          <StyledInput
+            type="text"
+            name="username"
+            value={credentials.username}
+            onChange={handleChanges}
+          />
+        </StyledLabel>
+        <StyledLabel>
+          Password:
+          <StyledInput
+            type="password"
+            name="password"
+            value={credentials.password}
+            onChange={handleChanges}
+          />
+        </StyledLabel>
+        <StyledSubmit>Submit</StyledSubmit>
+      </StyledForm>
+    </div>
+  );
+};
 
 export default Login;

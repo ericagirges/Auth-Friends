@@ -5,7 +5,7 @@ import styled from "styled-components";
 const StyledContainer = styled.div `
     width: 100%;
     font-family: "Nanum Pen Script", sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     text-align: center;
 `
 
@@ -45,7 +45,7 @@ const FriendsList = () => {
              {
                  friends.map((friend)=>{
                      return (
-                     <FriendContainer>
+                     <FriendContainer key={friend.id}>
                          <p>Name: {friend.name}</p>
                          <p>Age: {friend.age}</p>
                          <p>Email: {friend.email}</p>
