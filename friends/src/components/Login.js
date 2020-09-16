@@ -1,100 +1,108 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from 'react-router-dom';
+import Loader from "react-loader-spinner";
 
-const StyledForm = styled.form `
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    height: 300px;
-    margin-top: 40px;
-`
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 300px;
+  margin-top: 40px;
+`;
 
-const StyledLabel = styled.label `
-    font-family: "Rubik";
-    font-size: 1.4rem;
-`
+const StyledLabel = styled.label`
+  font-family: "Rubik";
+  font-size: 1.4rem;
+`;
 
-const StyledInput = styled.input `
-    margin-left: 20px;
-    height: 25px;
-    width: 200px;
-    border-radius: 5px;
-`
+const StyledInput = styled.input`
+  margin-left: 20px;
+  height: 25px;
+  width: 200px;
+  border-radius: 5px;
+`;
 
-const StyledSubmit = styled.button `
-    border: 1px solid  black;
-    border-radius: 5px;
-    background: #F5DA16;
-    font-family: "Rubik";
-    font-size: 1.2rem;
-    width: 100px;
-    height: 30px;
-    text-transform: uppercase;
-    margin-top: 40px;
-`
+const StyledSubmit = styled.button`
+  border: 1px solid black;
+  border-radius: 5px;
+  background: #f5da16;
+  font-family: "Rubik";
+  font-size: 1.2rem;
+  width: 100px;
+  height: 30px;
+  text-transform: uppercase;
+  margin-top: 40px;
+`;
 
-class Login extends React.Component{
-    state = {
-        credentials: {
-          username: "",
-          password: ""
-        },
-        error: ""
-      };
-    
-      handleChange = (event) => {
-        this.setState({
-          credentials: {
-            ...this.state.credentials,
-            [event.target.name]: event.target.value
-          },
-          error: ""
-        });
-      };
-    
-      login = (event) => {
-        event.preventDefault();
-        axiosWithAuth()
-          .post("/api/login", this.state.credentials)
-          .then((response) => {
-            localStorage.setItem("token", response.data.payload);
-            this.props.history.push("/protected");
-          })
-          .catch((error) => {
-            this.setState({
-              error: error.response.data.error
-            });
-          });
-      };
-    
-      render() {
-        return (
-          <div>
-            <StyledForm onSubmit={this.login}>
-                <StyledLabel>Username:
-              <StyledInput
-                type="text"
-                name="username"
-                value={this.state.credentials.username}
-                onChange={this.handleChange}
-              />
-              </StyledLabel>
-              <StyledLabel>Password:
-              <StyledInput
-                type="password"
-                name="password"
-                value={this.state.credentials.password}
-                onChange={this.handleChange}
-              />
-              </StyledLabel>
-              <StyledSubmit>Submit</StyledSubmit>
-            </StyledForm>
-            <p style={{ color: "#D90505" }}>{this.state.error}</p>
+const userLogin = {
+    username: "",
+    password: ""
+}
+
+const  Login = () => {
+    const [credentials, setCredentials] = useState(userLogin);
+    const history = useHistory();
+
+  const handleChange = (event) => {
+    setCredentials({
+        ...credentials,
+        [event.target.name]: event.target.value,
+      });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axiosWithAuth()
+      .post("/api/login", credentials)
+      .then((response) => {
+        console.log(response)
+        localStorage.setItem("token", response.data.payload);
+        history.push("/friendslist");
+      })
+      .catch((error) => {
+        alert("Login failed.")
+      });
+  };
+
+
+    return (
+      <div>
+        {/* {fetchingData && (
+          <div className="key spinner">
+            <Loader type="Audio" color="#0EC2EE" height="60" width="60" />
+            <p style={{ fontFamily: "Rubik" }}>Loading your Friends List</p>
           </div>
-        );
-      }
-    }
-    
-    export default Login;
+        )} */}
+        <StyledForm onSubmit={handleSubmit}>
+          <StyledLabel>
+            Username:
+            <StyledInput
+              type="text"
+              name="username"
+              value={credentials.username}
+              onChange={handleChange}
+            />
+          </StyledLabel>
+          <StyledLabel>
+            Password:
+            <StyledInput
+              type="password"
+              name="password"
+              value={credentials.password}
+              onChange={handleChange}
+            />
+          </StyledLabel>
+          <StyledSubmit>Submit</StyledSubmit>
+        </StyledForm>
+      </div>
+    );
+
+}
+
+
+
+
+export default Login;
