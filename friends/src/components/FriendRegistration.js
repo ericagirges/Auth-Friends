@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from 'react-router-dom';
 
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -77,7 +78,6 @@ const FriendRegistration = () => {
       .then((response) => {
         console.log(response)
         localStorage.setItem("token", response.data.payload);
-        // alert("Friend added! Please login to view your friends list.")
         history.push("/login");
       })
       .catch((error) => {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
-import Loader from "react-loader-spinner";
 
 const StyledForm = styled.form`
   display: flex;
@@ -46,12 +45,18 @@ const StyledSubmit = styled.button`
   margin-top: 40px;
 `;
 
+// const StyledLoader = styled.div `
+//     text-align: center;
+//     width: 100%;
+// `
+
+
 const userLogin = {
   username: "",
   password: "",
 };
 
-const Login = () => {
+const Login = (props) => {
   const [credentials, setCredentials] = useState(userLogin);
   const history = useHistory();
 
@@ -79,11 +84,10 @@ const Login = () => {
   return (
     <div>
       <StyledTitle>Login</StyledTitle>
-      {/* {fetchingData && (
-          <div className="key spinner">
-            <Loader type="Audio" color="#0EC2EE" height="60" width="60" />
-            <p style={{ fontFamily: "Rubik" }}>Loading your Friends List</p>
-          </div>
+      {/* {isLoading && (
+          <StyledLoader className="key spinner">
+            <Loader type="ThreeDots" color="#0EC2EE" height="60" width="60" timeout={3000}/>
+          </StyledLoader>
         )} */}
       <StyledForm onSubmit={handleSubmit}>
         <StyledLabel>
